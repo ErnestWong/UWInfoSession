@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity{
 
 	// tags
 	private final String TAG_DATA = "data";
@@ -34,19 +34,57 @@ public class MainActivity extends ListActivity {
 	private final String TAG_AUDIENCE = "audience";
 	private final String TAG_PROGRAMS = "programs";
 	private final String TAG_DESCRIPTION = "description";
-
+	
+	private final int WINTER_2014 = 1141;
+	private final int SPRING_2014 = 1145;
+	private final int FALL_2014 = 1149;
+	
 	private final String API_KEY = "b15ace6df5f1c774c94309b0d91912f3";
-	private final String term = "1145";
+	private final String term = SPRING_2014;
 	private final String format = "json";
 	FindSessions task;
 	public List<Event> eventList;
+	
+	private Context c;
+	private Intent intent;
 
+	private final ListView l;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	
+		l = (ListView)findViewById();	
+	
+		c = getApplicationContext();
 		task = new FindSessions();
 		task.execute();
+	
+		l.setOnItemClickListener(new OnItemClickListener() {
+			
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+			int position, long id) {
+				intent = new Intent(c, /*SingleActivity.class*/);
+				Bundle b = new Bundle();
+				b = putBundle(eventList.get(position));
+				intent.putExtra("event bundle", b);
+				startActivity(intent);
+  			}
+		}); 
+	}
+	
+	private Bundle putBundle(Event event){
+		Bundle b = new Bundle();
+		b.putString("date", event.getDate());
+		b.putString("start", event.getStarttime());
+		b.putString("end", event.getEndtime());
+		b.putString("location", event.getLocation());
+		b.putString("audience", event.getAudience());
+		b.putString("program", event.getPrograms));
+		b.putString("description", event.getDescription());
+		b.putString("website", event.getWebsite());
 	}
 
 	@Override
@@ -96,10 +134,8 @@ public class MainActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			ListAdapter adapter = new SimpleAdapter(MainActivity.this,
-					eventList, R.layout.list_item, new String[] { TAG_NAME,
-							TAG_EMAIL, TAG_PHONE_MOBILE }, new int[] {
-							R.id.name, R.id.email, R.id.mobile });
+			ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, eventList);
+			l.setAdapter(adapter);
 		}
 
 		private void readJSONString(String jsonStr) throws Exception {
