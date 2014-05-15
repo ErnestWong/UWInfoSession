@@ -20,8 +20,19 @@ import android.view.Menu;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
+//to do: 
+//-sort list
+//-check if adapter works
+//-add new activity for single view
+//-xml documents for single view and list view
+//-add fragment for tab
+//-check for internet connection (make sure the data saves for offline reading)
+//-improve UI
+
 public class MainActivity extends Activity{
 
+	//error tags
+	private final String TAG_NULL = "NULL EVENTLIST";
 	// tags
 	private final String TAG_DATA = "data";
 	private final String TAG_ID = "id";
@@ -43,7 +54,11 @@ public class MainActivity extends Activity{
 	private final String term = SPRING_2014;
 	private final String format = "json";
 	FindSessions task;
+	
 	public List<Event> eventList;
+	public List<Event> sortedByDateList;
+	public List<Event> sortedByEmployerList;
+	public List<Event> sortedByLocationList;
 	
 	private Context c;
 	private Intent intent;
@@ -66,15 +81,64 @@ public class MainActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
-				intent = new Intent(c, /*SingleActivity.class*/);
-				Bundle b = new Bundle();
-				b = putBundle(eventList.get(position));
-				intent.putExtra("event bundle", b);
-				startActivity(intent);
+				if(eventList.isEmpty()){
+					Log.d(TAG_NULL, "OnClick");
+					return;
+				}
+					intent = new Intent(c, /*SingleActivity.class*/);
+					Bundle b = new Bundle();
+					b = putBundle(eventList.get(position));
+					intent.putExtra("event bundle", b);
+					startActivity(intent);
   			}
 		}); 
 	}
 	
+	//on button click for sorting by employers
+	public void onSortEmployer(){
+		if(eventList.isEmpty){
+			Log.d(TAG_NULL, "sort employer");
+			return;
+		}
+		
+		if(sortedByEmployerList.isEmpty){
+			sortedByEmployerList = sortByEmployer;
+		}	
+		
+		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByEmployerList);
+		l.setAdapter(adapter);
+		
+	}
+
+	//on button click for sorting by date
+	public void onSortDate(){
+		if(eventList.isEmpty){
+			Log.d(TAG_NULL, "sort date");
+			return;
+		}
+		
+		if(sortedByEmployerList.isEmpty){
+			sortByDateList = sortByDate;
+		}
+		
+		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByDateList);
+		l.setAdapter(adapter);
+	}
+
+	//on button click for sorting by location
+	public void onSortLocation(){
+		if(eventList.isEmpty){
+			Log.d(TAG_NULL, "sort location");
+			return;
+		}
+		
+		if(sortedByLocationList.isEmpty){
+			sortByLocationList = sortByLocation;
+		}
+		
+		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByLocationList);
+		l.setAdapter(adapter);
+	}
 	private Bundle putBundle(Event event){
 		Bundle b = new Bundle();
 		b.putString("date", event.getDate());
