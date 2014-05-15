@@ -139,6 +139,21 @@ public class MainActivity extends Activity{
 		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByLocationList);
 		l.setAdapter(adapter);
 	}
+
+	//returns 1 if e1 > e2 (e1 lower alphabetically)
+	//returns -1 if e1 < e2 (e2 lower alphabetically)
+	//returns 0 if e1 == e2 (same alphabetically)
+	public int compareEmployer(Event e1, Event e2){
+		return e2.getEmployer().compareTo(e1.getEmployer());
+	}
+
+	//returns 1 if e1 > e2 (e1 lower alphabetically)
+	//returns -1 if e1 < e2 (e2 lower alphabetically)
+	//returns 0 if e1 == e2 (same alphabetically)
+	public int compareLocation(Event e1, Event e2){
+		return e2.getLocation().compareTo(e1.getLocation());
+	}
+
 	private Bundle putBundle(Event event){
 		Bundle b = new Bundle();
 		b.putString("date", event.getDate());
