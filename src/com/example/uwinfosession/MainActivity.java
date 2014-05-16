@@ -16,12 +16,33 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
-public class MainActivity extends ListActivity {
+//to do: 
+//-sort list
+//-check if adapter works
+//-add new activity for single view
+//-xml documents for single view and list view
+//-add fragment for tab
+//-check for internet connection (make sure the data saves for offline reading)
+//-improve UI
 
+public class MainActivity extends Activity{
+
+	//error tags
+	private final String TAG_NULL = "NULL EVENTLIST";
+	
 	// tags
 	private final String TAG_DATA = "data";
 	private final String TAG_ID = "id";
@@ -35,18 +56,134 @@ public class MainActivity extends ListActivity {
 	private final String TAG_PROGRAMS = "programs";
 	private final String TAG_DESCRIPTION = "description";
 
+	private final int WINTER_2014 = 1141;
+	private final int SPRING_2014 = 1145;
+	private final int FALL_2014 = 1149;
+
+	//URL string constants
 	private final String API_KEY = "b15ace6df5f1c774c94309b0d91912f3";
-	private final String term = "1145";
+	private final String term = SPRING_2014 + "";
 	private final String format = "json";
-	FindSessions task;
+	
+	//private async thread class
+	private FindSessions task;
+
+	//lists for each sorted option
 	public List<Event> eventList;
+	public List<Event> sortedByDateList;
+	public List<Event> sortedByEmployerList;
+	public List<Event> sortedByLocationList;
+
+	private Context c;
+	private Intent intent;
+
+	private ListView l;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		l = (ListView)findViewById(R.id.listView1);	
+
+		c = getApplicationContext();
 		task = new FindSessions();
 		task.execute();
+
+		l.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+			int position, long id) {
+				if(eventList.isEmpty()){
+					Log.d(TAG_NULL, "OnClick");
+					return;
+				}
+					intent = new Intent(c, SingleActivity.class);
+					Bundle b = new Bundle();
+					b = putBundle(eventList.get(position));
+					intent.putExtra("event bundle", b);
+					startActivity(intent);
+  			}
+
+		}); 
+	}
+	/*
+	//on button click for sorting by employers
+	public void onSortEmployer(){
+		if(eventList.isEmpty()){
+			Log.d(TAG_NULL, "sort employer");
+			return;
+		}
+
+		if(sortedByEmployerList.isEmpty()){
+			sortedByEmployerList = sortByEmployer;
+		}	
+
+		ListAdapter adapter = new ArrayAdapter<Event>(c, layout, sortedByEmployerList);
+		l.setAdapter(adapter);
+
+	}
+
+	//on button click for sorting by date
+	public void onSortDate(){
+		if(eventList.isEmpty()){
+			Log.d(TAG_NULL, "sort date");
+			return;
+		}
+
+		if(sortedByEmployerList.isEmpty()){
+			sortedByDateList = sortByDate;
+		}
+
+		ListAdapter adapter = new ArrayAdapter<Event>(c,layout , sortedByDateList);
+		l.setAdapter(adapter);
+	}
+
+	//on button click for sorting by location
+	public void onSortLocation(){
+		if(eventList.isEmpty()){
+			Log.d(TAG_NULL, "sort location");
+			return;
+		}
+
+		if(sortedByLocationList.isEmpty()){
+			sortedByLocationList = sortByLocation;
+		}
+
+		ListAdapter adapter = new ArrayAdapter<Event>(c, layout, sortedByLocationList);
+		l.setAdapter(adapter);
+	}
+
+	*/
+	
+	//returns 1 if e1 > e2 (e1 lower alphabetically)
+	//returns -1 if e1 < e2 (e2 lower alphabetically)
+	//returns 0 if e1 == e2 (same alphabetically)
+	public int compareEmployer(Event e1, Event e2){
+		return e2.getEmployer().compareTo(e1.getEmployer());
+	}
+
+	//returns 1 if e1 > e2 (e1 lower alphabetically)
+	//returns -1 if e1 < e2 (e2 lower alphabetically)
+	//returns 0 if e1 == e2 (same alphabetically)
+	public int compareLocation(Event e1, Event e2){
+		return e2.getLocation().compareTo(e1.getLocation());
+	}
+
+	private Bundle putBundle(Event event){
+		Bundle b = new Bundle();
+		b.putString("employer", event.getEmployer());
+		b.putString("date", event.getDate());
+		b.putString("start", event.getStarttime());
+		b.putString("end", event.getEndtime());
+		b.putString("location", event.getLocation());
+		b.putString("audience", event.getAudience());
+		b.putString("program", event.getPrograms());
+		b.putString("description", event.getDescription());
+		b.putString("website", event.getWebsite());
+		return b;
 	}
 
 	@Override
@@ -96,10 +233,8 @@ public class MainActivity extends ListActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			ListAdapter adapter = new SimpleAdapter(MainActivity.this,
-					eventList, R.layout.list_item, new String[] { TAG_NAME,
-							TAG_EMAIL, TAG_PHONE_MOBILE }, new int[] {
-							R.id.name, R.id.email, R.id.mobile });
+			CustomArrayAdapter adapter = new CustomArrayAdapter(c, R.id.listViewLabel, eventList);
+			l.setAdapter(adapter);
 		}
 
 		private void readJSONString(String jsonStr) throws Exception {
