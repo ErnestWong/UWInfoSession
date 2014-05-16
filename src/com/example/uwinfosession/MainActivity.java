@@ -42,7 +42,10 @@ public class MainActivity extends Activity{
 
 	//error tags
 	private final String TAG_NULL = "NULL EVENTLIST";
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 	// tags
 	private final String TAG_DATA = "data";
 	private final String TAG_ID = "id";
@@ -55,6 +58,7 @@ public class MainActivity extends Activity{
 	private final String TAG_AUDIENCE = "audience";
 	private final String TAG_PROGRAMS = "programs";
 	private final String TAG_DESCRIPTION = "description";
+<<<<<<< HEAD
 
 	private final int WINTER_2014 = 1141;
 	private final int SPRING_2014 = 1145;
@@ -69,21 +73,42 @@ public class MainActivity extends Activity{
 	private FindSessions task;
 
 	//lists for each sorted option
+=======
+	
+	private final int WINTER_2014 = 1141;
+	private final int SPRING_2014 = 1145;
+	private final int FALL_2014 = 1149;
+	
+	private final String API_KEY = "b15ace6df5f1c774c94309b0d91912f3";
+	private final String term = SPRING_2014;
+	private final String format = "json";
+	FindSessions task;
+	
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 	public List<Event> eventList;
 	public List<Event> sortedByDateList;
 	public List<Event> sortedByEmployerList;
 	public List<Event> sortedByLocationList;
+<<<<<<< HEAD
 
 	private Context c;
 	private Intent intent;
 
 	private ListView l;
 	
+=======
+	
+	private Context c;
+	private Intent intent;
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 
+	private final ListView l;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 		
 		l = (ListView)findViewById(R.id.listView1);	
 
@@ -93,6 +118,17 @@ public class MainActivity extends Activity{
 
 		l.setOnItemClickListener(new OnItemClickListener() {
 
+=======
+	
+		l = (ListView)findViewById();	
+	
+		c = getApplicationContext();
+		task = new FindSessions();
+		task.execute();
+	
+		l.setOnItemClickListener(new OnItemClickListener() {
+			
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
@@ -100,12 +136,17 @@ public class MainActivity extends Activity{
 					Log.d(TAG_NULL, "OnClick");
 					return;
 				}
+<<<<<<< HEAD
 					intent = new Intent(c, SingleActivity.class);
+=======
+					intent = new Intent(c, /*SingleActivity.class*/);
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 					Bundle b = new Bundle();
 					b = putBundle(eventList.get(position));
 					intent.putExtra("event bundle", b);
 					startActivity(intent);
   			}
+<<<<<<< HEAD
 
 		}); 
 	}
@@ -124,10 +165,30 @@ public class MainActivity extends Activity{
 		ListAdapter adapter = new ArrayAdapter<Event>(c, layout, sortedByEmployerList);
 		l.setAdapter(adapter);
 
+=======
+		}); 
+	}
+	
+	//on button click for sorting by employers
+	public void onSortEmployer(){
+		if(eventList.isEmpty){
+			Log.d(TAG_NULL, "sort employer");
+			return;
+		}
+		
+		if(sortedByEmployerList.isEmpty){
+			sortedByEmployerList = sortByEmployer;
+		}	
+		
+		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByEmployerList);
+		l.setAdapter(adapter);
+		
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 	}
 
 	//on button click for sorting by date
 	public void onSortDate(){
+<<<<<<< HEAD
 		if(eventList.isEmpty()){
 			Log.d(TAG_NULL, "sort date");
 			return;
@@ -138,11 +199,24 @@ public class MainActivity extends Activity{
 		}
 
 		ListAdapter adapter = new ArrayAdapter<Event>(c,layout , sortedByDateList);
+=======
+		if(eventList.isEmpty){
+			Log.d(TAG_NULL, "sort date");
+			return;
+		}
+		
+		if(sortedByEmployerList.isEmpty){
+			sortByDateList = sortByDate;
+		}
+		
+		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByDateList);
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 		l.setAdapter(adapter);
 	}
 
 	//on button click for sorting by location
 	public void onSortLocation(){
+<<<<<<< HEAD
 		if(eventList.isEmpty()){
 			Log.d(TAG_NULL, "sort location");
 			return;
@@ -158,6 +232,21 @@ public class MainActivity extends Activity{
 
 	*/
 	
+=======
+		if(eventList.isEmpty){
+			Log.d(TAG_NULL, "sort location");
+			return;
+		}
+		
+		if(sortedByLocationList.isEmpty){
+			sortByLocationList = sortByLocation;
+		}
+		
+		ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, sortedByLocationList);
+		l.setAdapter(adapter);
+	}
+
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 	//returns 1 if e1 > e2 (e1 lower alphabetically)
 	//returns -1 if e1 < e2 (e2 lower alphabetically)
 	//returns 0 if e1 == e2 (same alphabetically)
@@ -174,16 +263,25 @@ public class MainActivity extends Activity{
 
 	private Bundle putBundle(Event event){
 		Bundle b = new Bundle();
+<<<<<<< HEAD
 		b.putString("employer", event.getEmployer());
+=======
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 		b.putString("date", event.getDate());
 		b.putString("start", event.getStarttime());
 		b.putString("end", event.getEndtime());
 		b.putString("location", event.getLocation());
 		b.putString("audience", event.getAudience());
+<<<<<<< HEAD
 		b.putString("program", event.getPrograms());
 		b.putString("description", event.getDescription());
 		b.putString("website", event.getWebsite());
 		return b;
+=======
+		b.putString("program", event.getPrograms));
+		b.putString("description", event.getDescription());
+		b.putString("website", event.getWebsite());
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 	}
 
 	@Override
@@ -233,7 +331,11 @@ public class MainActivity extends Activity{
 
 		@Override
 		protected void onPostExecute(Void result) {
+<<<<<<< HEAD
 			CustomArrayAdapter adapter = new CustomArrayAdapter(c, R.id.listViewLabel, eventList);
+=======
+			ListAdapter adapter = new ArrayAdapter<Event>(c, /*layout ID for view*/, eventList);
+>>>>>>> 48253e3d425cccc047cd484eb317ad174b82b0fe
 			l.setAdapter(adapter);
 		}
 
