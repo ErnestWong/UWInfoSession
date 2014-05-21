@@ -1,5 +1,7 @@
 package com.example.uwinfosession;
 
+import android.util.Log;
+
 public class Event {
 
 	private String id;
@@ -25,7 +27,13 @@ public class Event {
 		audience = h;
 		programs = i;
 		description = j;
+		
 		if(description.trim().equals("")) description = "N/A";
+		
+		if(description.contains("\\")){			
+			description = description.replace("\\", "");
+		}
+		
 		if(website.trim().equals("")) website = "N/A";
 	}
 
@@ -67,6 +75,11 @@ public class Event {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	@Override
+	public String toString(){
+		return employer + ": " + date; 
 	}
 
 }

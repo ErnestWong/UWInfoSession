@@ -12,5 +12,9 @@
     <string name="programs">Programs</string>
     <string name="description">Description</string>
     <string name="website">Website</string>
+    <string name="add_calendar">Add to Calendar</string>
+
+    <drawable name="background_grey">#333333</drawable>
+    <drawable name="color_white">#FFFFFF</drawable>
 
 </resources>

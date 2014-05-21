@@ -1,88 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
-    <TextView
-        android:id="@+id/employer_text"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="31dp"
-        android:text="@string/employer"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/employer_text"
-        android:layout_below="@+id/employer_text"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/date"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_text"
-        android:layout_below="@+id/date_text"
-        android:layout_marginTop="15dp"
-        android:text="@string/time"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <TextView
-        android:id="@+id/location_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_text"
-        android:layout_below="@+id/time_text"
-        android:layout_marginTop="15dp"
-        android:text="@string/location"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-     <TextView
-        android:id="@+id/audience_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_text"
-        android:layout_below="@+id/location_text"
-        android:layout_marginTop="15dp"
-        android:text="@string/audience"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-     
-      <TextView
-        android:id="@+id/programs_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_text"
-        android:layout_below="@+id/audience_text"
-        android:layout_marginTop="15dp"
-        android:text="@string/programs"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-      
-       <TextView
-        android:id="@+id/description_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_text"
-        android:layout_below="@+id/programs_text"
-        android:layout_marginTop="15dp"
-        android:text="@string/description"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:background="@drawable/background_grey"
+        android:orientation="vertical" >
 
         <TextView
-        android:id="@+id/website_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date_text"
-        android:layout_below="@+id/description_text"
-        android:layout_marginTop="15dp"
-        android:text="@string/website"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-</RelativeLayout>
+            android:id="@+id/employer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="31dp"
+            android:text="@string/employer"
+            android:textColor="@drawable/color_white"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/employer_text"
+            android:layout_below="@+id/employer_text"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/date"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@drawable/color_white" />
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/date_text"
+            android:layout_below="@+id/date_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/time"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@drawable/color_white" />
+
+        <TextView
+            android:id="@+id/location_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/date_text"
+            android:layout_below="@+id/time_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/location"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@drawable/color_white" />
+
+        <TextView
+            android:id="@+id/audience_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/date_text"
+            android:layout_below="@+id/location_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@drawable/color_white"
+            android:text="@string/audience"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/programs_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/date_text"
+            android:layout_below="@+id/audience_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/programs"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@drawable/color_white" />
+
+        <TextView
+            android:id="@+id/description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/date_text"
+            android:layout_below="@+id/programs_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/description"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@drawable/color_white" />
+
+        <TextView
+            android:id="@+id/website_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/date_text"
+            android:layout_below="@+id/description_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/website"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@drawable/color_white"
+            android:autoLink="web" />
+
+        <Button
+            android:id="@+id/add_calendar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/employer_text"
+            android:layout_marginRight="20dp"
+            android:text="@string/add_calendar"
+            android:textColor="@drawable/color_white"
+            android:onClick="onButtonPress" />
+
+    </RelativeLayout>
+
+</ScrollView>
